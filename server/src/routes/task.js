@@ -32,7 +32,6 @@ router.get('/', async (req, res) => {
     try {
         const tasks = await taskModel.find({ user: req.user });
         res.status(200).json(tasks);
-        console.log(tasks)
     } catch (e) {
         console.log(e.message)
         res.status(400).json({
@@ -43,8 +42,11 @@ router.get('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
         await taskModel.findByIdAndUpdate(req.params.id, req.body)
+        console.log(req.params.id, req.body)
         const task = await taskModel.findById(req.params.id);
-        res.status(200).json(task);
+        res.status(200).json({
+            message: "success"
+        });
     } catch (e) {
         console.log(e.message)
         res.status(400).json({
